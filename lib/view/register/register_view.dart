@@ -517,7 +517,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Deitbetes - Pendaftaran"),
+        title: Text("Dietbetes - Pendaftaran"),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
