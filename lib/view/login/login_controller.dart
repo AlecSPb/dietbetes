@@ -4,16 +4,28 @@ import 'dart:async';
 import 'package:dietbetes/models/user.dart';
 import 'package:dietbetes/util/api.dart';
 import 'package:dietbetes/util/session.dart';
+import 'package:dietbetes/wigdet/dialog.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:dio/dio.dart';
 import 'package:dietbetes/util/bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginCtrl extends Object implements BlocBase {
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
   final _emailCtrl = BehaviorSubject<String>();
   final _passwordCtrl = BehaviorSubject<String>();
   final _loadingCtrl = BehaviorSubject<bool>();
+  final _sosmedLoginCtrl = BehaviorSubject<bool>();
   static Timer _timer;
 
   Stream<String> get email => _emailCtrl.stream;
@@ -34,7 +46,9 @@ class LoginCtrl extends Object implements BlocBase {
   }
 
   Future checkLogin(BuildContext context) async {
+    sessions.clear();
     bool isLoggedIn = await sessions.checkAuth();
+    // print(isLoggedIn);
     if (isLoggedIn) {
       Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
     }
@@ -77,7 +91,7 @@ class LoginCtrl extends Object implements BlocBase {
     if (key.currentState.validate()) {
       key.currentState.save();
       _loadingCtrl.sink.add(true);
-      var token = await sessions.load('onesignal');
+      var token = await _firebaseMessaging.getToken();
       var api = Api.access();
       Response response;
 
@@ -113,6 +127,62 @@ class LoginCtrl extends Object implements BlocBase {
           Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(e.message)));
         }
 
+      }
+    }
+  }
+
+  Future<void> handleSignIn(GlobalKey<FormState> key) async {
+    if (_sosmedLoginCtrl.value != true) {
+      _sosmedLoginCtrl.sink.add(true);
+      _loadingCtrl.sink.add(true);
+      try {
+        final result = await _googleSignIn.signIn();
+        var token = await _firebaseMessaging.getToken();
+        print("result google login : $result");
+
+        var api = Api.access();
+        Response response;
+
+        try {
+        print('OnesignalToken : $token');
+        response = await api.post("/auth/login-google", data: {
+          "useremail" : result.email,
+          "google_id": result.id,
+          "onesignal_token": token
+        });
+        
+        print(response.data);
+        Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text("Login Success")));
+        sessions.save("auth", userToJson(response.data['data']));
+        var user = User.fromJson(response.data['data']);
+
+        sessions.save("token", user.token);
+        // print(await sessions.load('token'));
+        _loadingCtrl.sink.add(false);
+        _sosmedLoginCtrl.sink.add(false);
+        Navigator.of(key.currentContext).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+      } on DioError catch (e) {
+        _sosmedLoginCtrl.sink.add(false);
+        _loadingCtrl.sink.add(false);
+        if (e.response != null) {
+          var message = "Something when wrong!";
+          if (e.response.data.containsKey('validators')) {
+            message = e.response.data['validators'].toString();
+          }else if (e.response.data.containsKey('message')) {
+            message = e.response.data['message'];
+          }
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(message)));
+        }else{
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(e.message)));
+        }
+
+      }
+
+      } catch (error) {
+        print(error);
+        _sosmedLoginCtrl.sink.add(false);
+        _loadingCtrl.sink.add(false);
+        dialogs.alert(key.currentContext, "Login Google Error", error.toString());
       }
     }
   }

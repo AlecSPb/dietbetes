@@ -83,6 +83,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
               labelText: "Kata Sandi",
               contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0)
             ),
+            obscureText: true,
           );
         }
       ),
@@ -96,6 +97,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
               labelText: "Ulangi Kata Sandi",
               contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0)
             ),
+            obscureText: true,
           );
         }
       ),

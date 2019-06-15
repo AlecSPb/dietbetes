@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "374360794314",
+    "firebase_url": "https://dietbetes-4a90f.firebaseio.com",
+    "project_id": "dietbetes-4a90f",
+    "storage_bucket": "dietbetes-4a90f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374360794314:android:93e5b54593a13d8f",
+        "android_client_info": {
+          "package_name": "net.rcdevgames.dietbetes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374360794314-00phee2kpcll1hs0mvbd1773j4unuvs7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.rcdevgames.dietbetes",
+            "certificate_hash": "96227c1929da297246fe8c4369d653b2983737ca"
+          }
+        },
+        {
+          "client_id": "374360794314-u9d0l8vbskrsp9g7es2k0t62o0jpclk5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNYOL8d0ZK4zrLtb5S1cFATiaRuaUgo5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374360794314-u9d0l8vbskrsp9g7es2k0t62o0jpclk5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "374360794314-bspvl6hgfb98pss1pffsk3ogs4sggf8p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.rcdevgames.dietbetes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:dietbetes/models/user.dart';
 import 'package:dietbetes/util/bloc.dart';
+import 'package:dietbetes/util/session.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,13 +35,17 @@ class SportCtrl extends Object implements BlocBase {
     _checked.close();
   }
 
-  calculate(GlobalKey<FormState> _form) {
+
+  calculate(GlobalKey<FormState> _form) async {
     final form = _form.currentState;
+    User userData = await sessions.loadUser();
+    DateTime now = new DateTime.now();
+
 
     if (form.validate()) {
       form.save();
       if (_data.value < 1 && _processed.value != true) {
-        _approved.sink.add(_data.value < 250 ? true : false);
+        _approved.sink.add(_data.value < (220 - (now.difference(DateTime.parse(userData.userDetail.dob)).inDays/360).floor()) ? true : false);
         _processed.sink.add(true);
       }else{
         form.reset();
@@ -49,9 +56,28 @@ class SportCtrl extends Object implements BlocBase {
   }
 
   openYutube() async {
-    const url = 'https://youtu.be/03Ar9vo6VbM';
-    if (await canLaunch(url)) {
-      await launch(url);
+    int i;
+    var rndnumber="";
+    var rnd= new Random();
+    for (var i = 1; i < 2; i++) {
+    rndnumber = rndnumber + rnd.nextInt(9).toString();
+    }
+    
+    if (int.parse(rndnumber) > 5) {
+      rndnumber = (int.parse(rndnumber) / 2).round().toString();
+      i = num.parse(rndnumber);
+    }
+    
+    List<String> ulrs = [
+      'https://youtu.be/r6xkOlyKogM',
+      'https://youtu.be/03Ar9vo6VbM',
+      'https://youtu.be/GanQwAZSiiw',
+      'https://youtu.be/Sr8jxxI7oB8',
+      'https://youtu.be/w52tejxITW4'
+    ];
+    // const url = 'https://youtu.be/03Ar9vo6VbM';
+    if (await canLaunch(ulrs[i])) {
+      await launch(ulrs[i]);
     } else {
       throw 'Could not open youtube!';
     }

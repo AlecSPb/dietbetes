@@ -89,10 +89,7 @@ class HomePage extends StatelessWidget {
           decoration: BoxDecoration(
             color: Pigment.fromString("#BFEB9E")
           ),
-          padding: EdgeInsets.symmetric(
-            vertical: 45.0,
-            horizontal: 10.0
-          ),
+          padding: EdgeInsets.fromLTRB(10, 45, 10, 0),
           child: ListView(
             children: <Widget>[
               InkWell(

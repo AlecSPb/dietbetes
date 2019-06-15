@@ -16,10 +16,10 @@ String userGlucoseToJson(String data) {
 class UserGlucose {
     int id;
     int userId;
-    int hba1C;
-    int gdp;
-    int gds;
-    int ttgo;
+    num hba1C;
+    num gdp;
+    num gds;
+    num ttgo;
     String createdAt;
     String updatedAt;
     String status;

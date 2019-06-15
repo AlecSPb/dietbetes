@@ -65,7 +65,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         child: Column(
                           children: <Widget>[
                             Text('Status Anda :', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-                            InkWell(onTap: () => dashboardCtrl.getInfoStatus(context, snapshoot.data.status),child: Padding(padding: EdgeInsets.symmetric(vertical: 5.0),child: Text(snapshoot.data.status, style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: snapshoot.data.status == 'Hiperglikemia' ? Colors.red:(snapshoot.data.status == 'Hipoglikemia' ? Colors.yellow.shade700:Colors.green))))),
+                            InkWell(onTap: () => dashboardCtrl.getInfoStatus(context, snapshoot.data.status),child: Padding(padding: EdgeInsets.symmetric(vertical: 5.0),child: Text(snapshoot.data.status != null ? snapshoot.data.status:"", style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: snapshoot.data.status == 'Hiperglikemia' ? Colors.red:(snapshoot.data.status == 'Hipoglikemia' ? Colors.yellow.shade700:Colors.green))))),
                             Text('Kontrol asupan gula anda hari ini', style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic)),
                           ],
                         ),

@@ -9,21 +9,21 @@ class Sessions {
 
   Future<bool> checkAuth() async {
     prefs = await SharedPreferences.getInstance();
-    var res = prefs.getBool("isLoggedIn");
+    var res = prefs.getString("auth");
+    print(res);
     if (res == null) return false;
-    return res;
+    return true;
   }
 
   save(String key, String data) async {
     prefs = await SharedPreferences.getInstance();
     prefs.setString(key, data);
-    if (key == "auth") prefs.setBool("isLoggedIn", true);
     prefs.commit();
   }
 
   clear() async {
     prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    prefs.remove("auth");
   }
 
   Future<String> load(String key) async {

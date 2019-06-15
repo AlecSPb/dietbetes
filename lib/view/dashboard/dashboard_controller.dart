@@ -117,10 +117,12 @@ class DashboardCtrl extends Object implements BlocBase {
   }
 
   getInfoStatus(BuildContext context,String status) {
-    if (status == "Hiperglikemia") {
-      dialogs.information(context, title: status, child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.HTML_HIPERGLIKEMIA)],)));
-    }else if (status == "Hipoglikemia") {
-      dialogs.information(context, title: status, child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.HTML_HIPOGLIKEMIA)],)));
+    if (status != null) {
+      if (status == "Hiperglikemia") {
+        dialogs.information(context, title: status, child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.HTML_HIPERGLIKEMIA)],)));
+      }else if (status == "Hipoglikemia") {
+        dialogs.information(context, title: status, child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.HTML_HIPOGLIKEMIA)],)));
+      }
     }
   }
 }

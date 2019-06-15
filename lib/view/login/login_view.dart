@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> with ValidationMixin{
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (v) => FocusScope.of(context).requestFocus(pwdFocus),
             onSaved: loginCtrl.updateEmail,
-            autofocus: true,
+            // autofocus: true,
             decoration: InputDecoration(
               labelText: 'Email Anda',
               contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 10.0)
@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> with ValidationMixin{
                             ),
                             ),
                             RaisedButton(
-                              onPressed: () {},
+                              onPressed: () => loginCtrl.handleSignIn(_formLogin),
                               color: Colors.red,
                               child: Container(
                                 child: Row(
