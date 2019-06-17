@@ -3,7 +3,7 @@ class Static {
   static const String APP_NAME = "Dietbetes";
 
   // API
-  static const bool IS_PRODUCTION = false;
+  static const bool IS_PRODUCTION = true;
   static const String STAGING_URL = "http://10.0.0.3/api/v1";
   static const String PRODUCTION_URL = "https://dev.rcdevgames.net/dietbetes/public/api/v1";
 

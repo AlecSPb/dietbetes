@@ -106,8 +106,8 @@ class HomePage extends StatelessWidget {
                           width: 72.0,
                           height: 72.0,
                           child: CircularProfileAvatar(
+                            "http://i.pravatar.cc/300",
                             initialsText: Text("R", style: TextStyle(fontSize: 40, color: Colors.white)),
-                            imageUrl: "http://i.pravatar.cc/300",
                             elevation: 5.0,
                             borderWidth: 0.5,
                             borderColor: Colors.green.shade800,

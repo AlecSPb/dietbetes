@@ -54,8 +54,8 @@ class _ProfilePageState extends State<ProfilePage> with ValidationMixin {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircularProfileAvatar(
+                  "http://i.pravatar.cc/300",
                   initialsText: Text("R", style: TextStyle(fontSize: 40, color: Colors.white)),
-                  imageUrl: "http://i.pravatar.cc/300",
                   elevation: 5.0,
                   borderWidth: .5,
                   borderColor: Colors.grey,
