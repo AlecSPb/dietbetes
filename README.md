@@ -1,6 +1,7 @@
 
 # Dietbetes
 [![Codemagic build status](https://api.codemagic.io/apps/5d04b25337a09557ade0efa4/5d04b25337a09557ade0efa3/status_badge.svg)](https://codemagic.io/apps/5d04b25337a09557ade0efa4/5d04b25337a09557ade0efa3/latest_build)
+
 Aplikasi Kesehatan
 
 ## Getting Started
