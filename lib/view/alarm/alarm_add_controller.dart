@@ -68,8 +68,8 @@ class AlarmAddCtrl extends Object implements BlocBase {
     }
   }
 
-  scheduleDelete(BuildContext context) {
-    dialogs.prompt(context, "Apakah anda ingin menghapus pengingat ini?", () async {
+  scheduleDelete(GlobalKey<FormState> key) {
+    dialogs.prompt(key.currentContext, "Apakah anda ingin menghapus pengingat ini?", () async {
       AlarmCtrl alarmCtrl = new AlarmCtrl();
       _loading.sink.add(true);
       var api = Api.access();
@@ -79,8 +79,8 @@ class AlarmAddCtrl extends Object implements BlocBase {
         response = await api.delete("/alarm/remove/${_id.value}", options: Api.headers(await sessions.load("token")));
         _loading.sink.add(false);
         alarmCtrl.getAlarms();
-        Navigator.of(context).pop();
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("Berhasil dihapus!")));
+        Navigator.of(key.currentContext).pop();
+        Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text("Berhasil dihapus!")));
         
       } on DioError catch (e) {
         _loading.sink.add(false);
@@ -96,72 +96,75 @@ class AlarmAddCtrl extends Object implements BlocBase {
           }else{
             message = e.response.data;
           }
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(message)));
         }else{
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(e.message)));
         }
       }
     });
   }
 
-  scheduleSave(BuildContext context) async {
-    var data;
-    if (_id.value != null) {
-      data = {
-        "id": _id.value,
-        "title": _name.value,
-        "note": _note.value,
-        "remind_at": _hour.value,
-        "remind_on": _typeList.value.length > 6 ? "0":_typeList.value.toString().replaceFirst("[", "").replaceFirst("]", "").replaceAll(", ", ","),
-        "type": _type.value,
-        "status": _activated.value
-      };
-    } else {
-      data = {
-        "title": _name.value,
-        "note": _note.value,
-        "remind_at": _hour.value,
-        "remind_on": _typeList.value.length > 6 ? "0":_typeList.value.toString().replaceFirst("[", "").replaceFirst("]", "").replaceAll(", ", ","),
-        "type": _type.value,
-        "status": _activated.value
-      };
-    }
-    AlarmCtrl alarmCtrl = new AlarmCtrl();
-    _loading.sink.add(true);
-    // var api = Api.access();
-    // Response response;
+  scheduleSave(GlobalKey<FormState> key) async {
+    if (key.currentState.validate()) {
+      key.currentState.save();
+      var data;
+      if (_id.value != null) {
+        data = {
+          "id": _id.value,
+          "title": _name.value,
+          "note": _note.value,
+          "remind_at": _hour.value,
+          "remind_on": _typeList.value.length > 6 ? "0":_typeList.value.toString().replaceFirst("[", "").replaceFirst("]", "").replaceAll(", ", ","),
+          "type": _type.value,
+          "status": _activated.value
+        };
+      } else {
+        data = {
+          "title": _name.value,
+          "note": _note.value,
+          "remind_at": _hour.value,
+          "remind_on": _typeList.value.length > 6 ? "0":_typeList.value.toString().replaceFirst("[", "").replaceFirst("]", "").replaceAll(", ", ","),
+          "type": _type.value,
+          "status": _activated.value
+        };
+      }
+      AlarmCtrl alarmCtrl = new AlarmCtrl();
+      _loading.sink.add(true);
+      // var api = Api.access();
+      // Response response;
 
-    // try {
-    //   response = await api.post("/alarm/add", options: Api.headers(await sessions.load("token")), data: );
-    //   _loading.sink.add(false);
-    //   alarmCtrl.getAlarms();
-    //   Navigator.of(context).pop();
-    //   Scaffold.of(context).showSnackBar(SnackBar(content: Text("Berhasil dihapus!")));
-      
-    // } on DioError catch (e) {
-    //   _loading.sink.add(false);
-    //   if (e.response != null) {
-    //     var message = "Something when wrong!";
-    //     print(e.response.data.runtimeType);
-    //     if (e.response.data.runtimeType != String) {
-    //       if (e.response.data.containsKey('validators')) {
-    //         message = e.response.data['validators'].toString();
-    //       }else if (e.response.data.containsKey('message')) {
-    //         message = e.response.data['message'];
-    //       }
-    //     }else{
-    //       message = e.response.data;
-    //     }
-    //     Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
-    //   }else{
-    //     Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
-    //   }
-    // }
-    print(data);
-    await Future.delayed(Duration(seconds: 4));
-    _loading.sink.add(false);
-    alarmCtrl.getAlarms();
-    // Navigator.of(context).pop();
+      // try {
+      //   response = await api.post("/alarm/add", options: Api.headers(await sessions.load("token")), data: );
+      //   _loading.sink.add(false);
+      //   alarmCtrl.getAlarms();
+      //   Navigator.of(context).pop();
+      //   Scaffold.of(context).showSnackBar(SnackBar(content: Text("Berhasil dihapus!")));
+        
+      // } on DioError catch (e) {
+      //   _loading.sink.add(false);
+      //   if (e.response != null) {
+      //     var message = "Something when wrong!";
+      //     print(e.response.data.runtimeType);
+      //     if (e.response.data.runtimeType != String) {
+      //       if (e.response.data.containsKey('validators')) {
+      //         message = e.response.data['validators'].toString();
+      //       }else if (e.response.data.containsKey('message')) {
+      //         message = e.response.data['message'];
+      //       }
+      //     }else{
+      //       message = e.response.data;
+      //     }
+      //     Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
+      //   }else{
+      //     Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+      //   }
+      // }
+      print(data);
+      await Future.delayed(Duration(seconds: 4));
+      _loading.sink.add(false);
+      alarmCtrl.getAlarms();
+      // Navigator.of(context).pop();
+    }
   }
 
   selectType(BuildContext context) {

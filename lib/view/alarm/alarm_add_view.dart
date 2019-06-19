@@ -51,7 +51,7 @@ class _AlarmAddState extends State<AlarmAdd> with ValidationMixin{
         child: IconButton(
           icon: Icon(Icons.delete),
           tooltip: 'Hapus Pengingat',
-          onPressed: () => alarmAddCtrl.scheduleDelete(context),
+          onPressed: () => alarmAddCtrl.scheduleDelete(_formAlarm),
         ),
         padding: const EdgeInsets.only(right: 5.0),
       ));
@@ -61,7 +61,7 @@ class _AlarmAddState extends State<AlarmAdd> with ValidationMixin{
       child: IconButton(
         icon: Icon(Icons.save),
         tooltip: 'Simpan Pengingat',
-        onPressed: () => alarmAddCtrl.scheduleSave(context),
+        onPressed: () => alarmAddCtrl.scheduleSave(_formAlarm),
       ),
       padding: const EdgeInsets.only(right: 5.0),
     ));
