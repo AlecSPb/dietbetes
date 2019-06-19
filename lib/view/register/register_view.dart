@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
         stream: registerCtrl.getPassword,
         builder: (ctx, snapshoot) {
           return TextFormField(
-            validator: validateRequired,
+            validator: validatePassword,
             onSaved: registerCtrl.updatePassword,
             decoration: InputDecoration(
               labelText: "Kata Sandi",
@@ -91,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
         stream: registerCtrl.getConfPassword,
         builder: (ctx, snapshoot) {
           return TextFormField(
-            validator: validateRequired,
+            validator: validatePassword,
             onSaved: registerCtrl.updateConfPassword,
             decoration: InputDecoration(
               labelText: "Ulangi Kata Sandi",
@@ -172,11 +172,11 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
       ),
       StreamBuilder(
         initialData: 0,
-        stream: registerCtrl.getHistory,
+        stream: registerCtrl.getPhysical,
         builder: (ctx, snapshoot) {
           return DropdownButtonFormField(
             validator: (v) => validateRequired(v.toString()),
-            onChanged: (val) => registerCtrl.updatehistory(val),
+            onChanged: (val) => registerCtrl.updatePhysical(val),
             value: snapshoot.data,
             decoration: InputDecoration(
               labelText: "Aktifitas Fisik",
@@ -463,7 +463,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
                   bottom: BorderSide(width: 0.7)
                 )
               ),
-              height: 55.0,
+              height: 60.0,
               child: snapshoot.hasData && snapshoot.data != "" ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -487,7 +487,7 @@ class _RegisterPageState extends State<RegisterPage> with ValidationMixin {
                   bottom: BorderSide(width: 0.7)
                 )
               ),
-              height: 55.0,
+              height: 60.0,
               child: snapshoot.hasData && snapshoot.data != "" ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[

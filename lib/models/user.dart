@@ -72,16 +72,16 @@ class UserDetail {
     String callName;
     int gender;
     String dob;
-    int physicalActivity;
-    int height;
-    int weight;
-    int idealWeight;
-    int massIndex;
-    int historyFamily;
-    int cholTotal;
-    int cholLdl;
-    int cholHdl;
-    int triglesida;
+    num physicalActivity;
+    num height;
+    num weight;
+    num idealWeight;
+    num massIndex;
+    num historyFamily;
+    num cholTotal;
+    num cholLdl;
+    num cholHdl;
+    num triglesida;
     String bloodPressure;
     String clinicalSymptoms;
 

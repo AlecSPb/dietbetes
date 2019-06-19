@@ -342,61 +342,66 @@ class RegisterCtrl extends Object implements BlocBase {
     );
   }
 
-  Future submitData(GlobalKey key) async {
-    _isLoading.sink.add(true);
-    var api  = Api.access();
-    Response response;
+  Future submitData(GlobalKey<FormState> key) async {
+    if (key.currentState.validate()) {
+      key.currentState.save();
+      _isLoading.sink.add(true);
+      var api  = Api.access();
+      Response response;
 
-    try {
-      response = await api.post('/auth/register', data:  {
-        "full_name": _name.value,
-        "call_name": _callName.value,
-        "email": _email.value,
-        "password": _password.value,
-        "password_confirmation": _conf_password.value,
-        "dob": _birthdate.value,
-        "gender": _gender.value,
-        "onsignal_token": "xxx",
-        "physical_activity": _physical.value,
-        "height": _tinggi.value,
-        "weight": _berat.value,
-        "ideal_weight": _ideal_weight.value,
-        "mass_index": _ibm.value,
-        "history_family": _history.value,
-        "gdp": _gula_puasa.value,
-        "gds": _gula_sewaktu.value,
-        "hba1c": _hba1c.value,
-        "ttgo": _gula_makan.value,
-        "chol_total": _chol_total.value,
-        "chol_ldl": _ldl.value,
-        "chol_hdl": _hdl.value,
-        "triglesida": _trigliserida.value,
-        "blood_pressure": _last_tensi.value,
-        "clinical_symptoms": "[${_gejala_klinis.value}]",
-        "medicine": "[${_obat.value}]"
-      });
-      _isLoading.sink.add(false);
+      try {
+        response = await api.post('/auth/register', data:  {
+          "full_name": _name.value,
+          "call_name": _callName.value,
+          "email": _email.value,
+          "password": _password.value,
+          "password_confirmation": _conf_password.value,
+          "dob": _birthdate.value,
+          "gender": _gender.value,
+          "onsignal_token": "xxx",
+          "physical_activity": _physical.value,
+          "height": _tinggi.value,
+          "weight": _berat.value,
+          "ideal_weight": _ideal_weight.value,
+          "mass_index": _ibm.value,
+          "history_family": _history.value,
+          "gdp": _gula_puasa.value,
+          "gds": _gula_sewaktu.value,
+          "hba1c": _hba1c.value,
+          "ttgo": _gula_makan.value,
+          "chol_total": _chol_total.value,
+          "chol_ldl": _ldl.value,
+          "chol_hdl": _hdl.value,
+          "triglesida": _trigliserida.value,
+          "blood_pressure": _last_tensi.value,
+          "clinical_symptoms": "[${_gejala_klinis.value}]",
+          "medicine": "[${_obat.value}]"
+        });
+        print(response.toString());
+        _isLoading.sink.add(false);
 
-      Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text("Register Success")));
-      sessions.save("auth", userToJson(response.data['data']));
-      var user = User.fromJson(response.data['data']);
+        Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text("Pendaftaran Berhasil, Silakan Login.")));
+        // sessions.save("auth", userToJson(response.data['data']));
+        // var user = User.fromJson(response.data['data']);
 
-      sessions.save("token", user.token);
-      // print(await session.load('token'));
-      // _loadingCtrl.sink.add(false);
-      Navigator.of(key.currentContext).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
-    } catch (e) {
-      _isLoading.sink.add(false);
-      if (e.response != null) {
-        var message = "Something when wrong!";
-        if (e.response.data.containsKey('validators')) {
-          message = e.response.data['validators'].toString();
-        }else if (e.response.data.containsKey('message')) {
-          message = e.response.data['message'];
+        // sessions.save("token", user.token);
+        // print(await session.load('token'));
+        // _loadingCtrl.sink.add(false);
+        Navigator.of(key.currentContext).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      } catch (e) {
+        print(e);
+        _isLoading.sink.add(false);
+        if (e.response != null) {
+          var message = "Something when wrong!";
+          if (e.response.data.containsKey('validators')) {
+            message = e.response.data['validators'].toString();
+          }else if (e.response.data.containsKey('message')) {
+            message = e.response.data['message'];
+          }
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(message)));
+        }else{
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(e.message)));
         }
-        Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(message)));
-      }else{
-        Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(e.message)));
       }
     }
   }
