@@ -42,6 +42,8 @@ class RegisterCtrl extends Object implements BlocBase {
   final _hdl = BehaviorSubject<String>();
   final _trigliserida = BehaviorSubject<String>();
   final _last_tensi = BehaviorSubject<String>();
+  final _tensi1 = BehaviorSubject<String>();
+  final _tensi2 = BehaviorSubject<String>();
   final _gejala_klinis = BehaviorSubject<String>();
   final _obat = BehaviorSubject<String>();
   final _isLoading = BehaviorSubject<bool>();
@@ -49,6 +51,35 @@ class RegisterCtrl extends Object implements BlocBase {
 
   final _daftarObat = PublishSubject<List<Medicines>>();
 
+  final _gdp = BehaviorSubject<String>();
+  final _gds = BehaviorSubject<String>();
+  final _ttgo = BehaviorSubject<String>();
+  final _hb1ac = BehaviorSubject<String>();
+  final _kol_total = BehaviorSubject<String>();
+  final _kol_ldl = BehaviorSubject<String>();
+  final _kol_hdl = BehaviorSubject<String>();
+  final _trigliserida_ = BehaviorSubject<String>();
+  final _tensi = BehaviorSubject<String>();
+
+  final gdp = TextEditingController();
+  final gds = TextEditingController();
+  final ttgo = TextEditingController();
+  final hb1ac = TextEditingController();
+  final kol_total = TextEditingController();
+  final kol_ldl = TextEditingController();
+  final kol_hdl = TextEditingController();
+  final trigliserida = TextEditingController();
+  final tensi = TextEditingController();
+
+  Stream<String> get get_gdp => _gdp.stream;
+  Stream<String> get get_gds => _gds.stream;
+  Stream<String> get get_ttgo => _ttgo.stream;
+  Stream<String> get get_hb1ac => _hb1ac.stream;
+  Stream<String> get get_kol_total => _kol_total.stream;
+  Stream<String> get get_kol_ldl => _kol_ldl.stream;
+  Stream<String> get get_kol_hdl => _kol_hdl.stream;
+  Stream<String> get get_trigliserida => _trigliserida_.stream;
+  Stream<String> get get_tensi => _tensi.stream;
 
   Stream<num> get getTinggi => _tinggi.stream;
   Stream<num> get getBerat => _berat.stream;
@@ -103,12 +134,96 @@ class RegisterCtrl extends Object implements BlocBase {
   Function(String) get updateLdl => _ldl.sink.add;
   Function(String) get updateHdl => _hdl.sink.add;
   Function(String) get updateTrigliserida => _trigliserida.sink.add;
+  Function(String) get update_tensi1 => _tensi1.sink.add;
+  Function(String) get update_tensi2 => _tensi2.sink.add;
   Function(String) get updatelast_tensi => _last_tensi.sink.add;
   Function(String) get updateGejala_klinis => _gejala_klinis.sink.add;
   Function(String) get updateObat => _obat.sink.add;
 
   RegisterCtrl() {
     _isLoading.sink.add(false);
+    gdp.addListener(() {
+      var value = int.parse(gdp.text);
+      if (value < 110) {
+        _gdp.sink.add("Baik");
+      } else if (value > 109 && value < 126) {
+        _gdp.sink.add("Sedang");
+      } else if (value >= 126) {
+        _gdp.sink.add("Buruk");
+      }
+    });
+    gds.addListener(() {
+      var value = int.parse(gds.text);
+      if (value < 145) {
+        _gds.sink.add("Baik");
+      } else if (value >= 145 && value < 180) {
+        _gds.sink.add("Sedang");
+      } else if (value > 179) {
+        _gds.sink.add("Buruk");
+      }
+    });
+    ttgo.addListener(() {
+      var value = int.parse(ttgo.text);
+      if (value < 181) {
+        _ttgo.sink.add("Baik");
+      } else  {
+        _ttgo.sink.add("Buruk");
+      }
+    });
+    hb1ac.addListener(() {
+      var value = num.parse(hb1ac.text);
+      if (value < 6.5) {
+        _hb1ac.sink.add("Baik");
+      } else if (value > 6.4 && value < 8.1) {
+        _hb1ac.sink.add("Sedang");
+      } else {
+        _hb1ac.sink.add("Buruk");
+      }
+    });
+    kol_total.addListener(() {
+      var value = int.parse(kol_total.text);
+      if (value < 200) {
+        _kol_total.sink.add("Baik");
+      } else if(value > 199 && value < 240) {
+        _kol_total.sink.add("Sedang");
+      }else{
+        _kol_total.sink.add("Buruk");
+      }
+    });
+    kol_ldl.addListener(() {
+      var value = int.parse(kol_ldl.text);
+      if (value < 100) {
+        _kol_ldl.sink.add("Baik");
+      } else if(value > 99 && value < 130) {
+        _kol_ldl.sink.add("Sedang");
+      } else {
+        _kol_ldl.sink.add("Buruk");
+      }
+    });
+    kol_hdl.addListener(() {
+      var value = int.parse(kol_hdl.text);
+      if (value > 129) {
+        _kol_hdl.sink.add("Buruk");
+      } else {
+        _kol_hdl.sink.add("Baik");
+      }
+    });
+    trigliserida.addListener(() {
+      var value = int.parse(trigliserida.text);
+      if (value < 150) {
+        _trigliserida_.sink.add("Baik");
+      } else if (value > 149 && value < 200) {
+        _trigliserida_.sink.add("Sedang");
+      }else{
+        _trigliserida_.sink.add("Buruk");
+      }
+    });
+    // tensi.addListener(() {
+    //   var value = int.parse(tensi.text);
+    //   if () {
+    //     _tensi.sink.add(null);
+    //   }
+    // });
   }
 
 
@@ -139,6 +254,8 @@ class RegisterCtrl extends Object implements BlocBase {
     _hdl.close();
     _trigliserida.close();
     _last_tensi.close();
+    _tensi1.close();
+    _tensi2.close();
     _gejala_klinis.close();
     _obat.close();
     _isLoading.close();
@@ -202,10 +319,14 @@ class RegisterCtrl extends Object implements BlocBase {
       }
 
       if (_gender.value != null && (num.parse(tinggi.text) != null && num.parse(tinggi.text) != '')) {
-        if ((_gender.value == 1 && num.parse(tinggi.text) < 160) || (_gender.value == 0 && num.parse(tinggi.text) < 150)) {
-          _ideal_weight.sink.add(num.parse(tinggi.text) - 100);
-        }else{
-          _ideal_weight.sink.add(0.9 * (num.parse(tinggi.text) - 100));
+        if (_gender.value == 1 && num.parse(tinggi.text) < 160) {
+          _ideal_weight.sink.add((num.parse(tinggi.text) - 100) - (0.10 * (num.parse(tinggi.text) - 100)));
+        } else if (_gender.value == 0 && num.parse(tinggi.text) < 150) {
+          _ideal_weight.sink.add((num.parse(tinggi.text) - 100) - (0.15 * (num.parse(tinggi.text) - 100)));
+        } else if (_gender.value == 1 && num.parse(tinggi.text) > 159) {
+          _ideal_weight.sink.add(0.9 * (num.parse(tinggi.text) - 100) - (0.10 * (num.parse(tinggi.text) - 100)));
+        } else if (_gender.value == 0 && num.parse(tinggi.text) > 149) {
+          _ideal_weight.sink.add(0.9 * (num.parse(tinggi.text) - 100) - (0.15 * (num.parse(tinggi.text) - 100)));
         }
       }
     }
@@ -373,14 +494,14 @@ class RegisterCtrl extends Object implements BlocBase {
           "chol_ldl": _ldl.value,
           "chol_hdl": _hdl.value,
           "triglesida": _trigliserida.value,
-          "blood_pressure": _last_tensi.value,
+          "blood_pressure": "$_tensi1/$_tensi2",
           "clinical_symptoms": "[${_gejala_klinis.value}]",
           "medicine": "[${_obat.value}]"
         });
         print(response.toString());
         _isLoading.sink.add(false);
 
-        Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text("Pendaftaran Berhasil, Silakan Login.")));
+        dialogs.alert(key.currentContext, "Succesfull", "Pendaftaran Berhasil, Silakan Login.");
         // sessions.save("auth", userToJson(response.data['data']));
         // var user = User.fromJson(response.data['data']);
 
