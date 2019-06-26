@@ -39,12 +39,15 @@ class _AlarmPageState extends State<AlarmPage> {
                   Text('Jaga pola makan dan atur jam makan mu', style: TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.italic))
                 ]..addAll(snapshot.data.map((alarm) {
                   return ListTile(
-                    onTap: () {
-                      Navigator.of(context).push(
+                    onTap: () async {
+                      var data = await Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) => AlarmAdd(alarm)
                         )
                       );
+                      if (data != null) {
+                        alarmCtrl.getAlarms();
+                      }
                     },
                     leading: alarm.status == 1 ? Icon(Icons.alarm_on, color: Colors.green):Icon(Icons.alarm_off, color: Colors.red),
                     title: Text(alarm.title),
@@ -61,6 +64,22 @@ class _AlarmPageState extends State<AlarmPage> {
               );
             } return Center(child: LoadingBlock(Theme.of(context).primaryColor));
           }
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 50.0),
+        child: FloatingActionButton(
+          child: Icon(Icons.alarm_add),
+          onPressed: () async {
+            var data = await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => AlarmAdd(null)
+              )
+            );
+            if (data != null) {
+              alarmCtrl.getAlarms();
+            }
+          },
         ),
       ),
       bottomSheet: Container(

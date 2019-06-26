@@ -46,7 +46,7 @@ class LoginCtrl extends Object implements BlocBase {
   }
 
   Future checkLogin(BuildContext context) async {
-    sessions.clear();
+    // sessions.clear();
     bool isLoggedIn = await sessions.checkAuth();
     // print(isLoggedIn);
     if (isLoggedIn) {
@@ -138,7 +138,9 @@ class LoginCtrl extends Object implements BlocBase {
       try {
         final result = await _googleSignIn.signIn();
         var token = await _firebaseMessaging.getToken();
-        print("result google login : $result");
+        result.authentication.then((data) {
+          debugPrint("result google login : ${data.idToken} -a");
+        });
 
         var api = Api.access();
         Response response;

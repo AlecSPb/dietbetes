@@ -23,12 +23,6 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   @override
-  void dispose() {
-    dashboardCtrl?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) { 
     return Scaffold(
       body: StreamBuilder(

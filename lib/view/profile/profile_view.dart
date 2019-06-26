@@ -235,32 +235,32 @@ class _ProfilePageState extends State<ProfilePage> with ValidationMixin {
             ),
           ),
           
-          Form(
-            key: _formGlucoseKey,
-            child: ExpansionTile(
-              title: Text("Glucose Setting"),
-              trailing: StreamBuilder(
-                stream: profileCtrl.getIcon3,
-                builder: (context, AsyncSnapshot<IconData> snapshot) => Icon(snapshot.data)
-              ),
-              onExpansionChanged: (v) => profileCtrl.updateIcon3(v ? Icons.expand_less:Icons.expand_more),
-              children: <Widget>[
-                Divider(),
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: RaisedButton(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 45.0,
-                      child: Center(child: Text("Simpan", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)))
-                    ),
-                    color: Colors.green,
-                    onPressed: () {},
-                  ),
-                )
-              ],
-            ),
-          )
+          // Form(
+          //   key: _formGlucoseKey,
+          //   child: ExpansionTile(
+          //     title: Text("Glucose Setting"),
+          //     trailing: StreamBuilder(
+          //       stream: profileCtrl.getIcon3,
+          //       builder: (context, AsyncSnapshot<IconData> snapshot) => Icon(snapshot.data)
+          //     ),
+          //     onExpansionChanged: (v) => profileCtrl.updateIcon3(v ? Icons.expand_less:Icons.expand_more),
+          //     children: <Widget>[
+          //       Divider(),
+          //       Padding(
+          //         padding: EdgeInsets.all(12.0),
+          //         child: RaisedButton(
+          //           child: SizedBox(
+          //             width: double.infinity,
+          //             height: 45.0,
+          //             child: Center(child: Text("Simpan", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)))
+          //           ),
+          //           color: Colors.green,
+          //           onPressed: () {},
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // )
         ],
       )
     );

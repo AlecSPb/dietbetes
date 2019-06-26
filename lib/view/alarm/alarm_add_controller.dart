@@ -128,42 +128,41 @@ class AlarmAddCtrl extends Object implements BlocBase {
           "status": _activated.value
         };
       }
-      AlarmCtrl alarmCtrl = new AlarmCtrl();
       _loading.sink.add(true);
-      // var api = Api.access();
-      // Response response;
+      var api = Api.access();
+      Response response;
 
-      // try {
-      //   response = await api.post("/alarm/add", options: Api.headers(await sessions.load("token")), data: );
-      //   _loading.sink.add(false);
-      //   alarmCtrl.getAlarms();
-      //   Navigator.of(context).pop();
-      //   Scaffold.of(context).showSnackBar(SnackBar(content: Text("Berhasil dihapus!")));
+      try {
+        response = await api.post("/alarm/add", options: Api.headers(await sessions.load("token")), data: data);
+        _loading.sink.add(false);
+        Navigator.of(key.currentState.context).pop(true);
+        Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text("Berhasil dihapus!")));
         
-      // } on DioError catch (e) {
-      //   _loading.sink.add(false);
-      //   if (e.response != null) {
-      //     var message = "Something when wrong!";
-      //     print(e.response.data.runtimeType);
-      //     if (e.response.data.runtimeType != String) {
-      //       if (e.response.data.containsKey('validators')) {
-      //         message = e.response.data['validators'].toString();
-      //       }else if (e.response.data.containsKey('message')) {
-      //         message = e.response.data['message'];
-      //       }
-      //     }else{
-      //       message = e.response.data;
-      //     }
-      //     Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
-      //   }else{
-      //     Scaffold.of(context).showSnackBar(SnackBar(content: Text(e.message)));
-      //   }
-      // }
-      print(data);
-      await Future.delayed(Duration(seconds: 4));
-      _loading.sink.add(false);
-      alarmCtrl.getAlarms();
-      // Navigator.of(context).pop();
+      } on DioError catch (e) {
+        print(e);
+        _loading.sink.add(false);
+        if (e.response != null) {
+          var message = "Something when wrong!";
+          print(e.response.data.runtimeType);
+          if (e.response.data.runtimeType != String) {
+            if (e.response.data.containsKey('validators')) {
+              message = e.response.data['validators'].toString();
+            }else if (e.response.data.containsKey('message')) {
+              message = e.response.data['message'];
+            }
+          }else{
+            message = e.response.data;
+          }
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(message)));
+        }else{
+          Scaffold.of(key.currentContext).showSnackBar(SnackBar(content: Text(e.message)));
+        }
+      }
+      // print(data);
+      // await Future.delayed(Duration(seconds: 4));
+      // _loading.sink.add(false);
+      // alarmCtrl.getAlarms();
+      // Navigator.of(key.currentContext).pop();
     }
   }
 

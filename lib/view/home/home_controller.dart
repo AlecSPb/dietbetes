@@ -66,6 +66,9 @@ class HomeCtrl extends Object implements BlocBase {
       case 4:
         _titleCtrl.sink.add('Pengingat');
         break;
+      case 5:
+        _titleCtrl.sink.add('Bantuan');
+        break;
       default:
         _titleCtrl.sink.add('DIETBETES');
     }

@@ -3,8 +3,9 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:dietbetes/util/data.dart';
 import 'package:dietbetes/view/alarm/alarm_add_view.dart';
 import 'package:dietbetes/view/alarm/alarm_view.dart';
+import 'package:dietbetes/view/help/help_view.dart';
 import 'package:dietbetes/view/menu.dart';
-import 'package:dietbetes/view/sport/sport_view.dart';
+import 'package:dietbetes/view/sport.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,8 @@ import 'package:dietbetes/view/journal/journal_view.dart';
 import 'package:dietbetes/view/dashboard/dashboard_view.dart';
 import 'package:dietbetes/view/home/home_controller.dart';
 
+final scaffoldKey = GlobalKey<ScaffoldState>();
 class HomePage extends StatelessWidget {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   _getDrawerItemWidget(pos) {
     switch (pos) {
       case 0:
@@ -31,6 +32,8 @@ class HomePage extends StatelessWidget {
         return new Menu();
       case 4:
         return new AlarmPage();
+      case 5:
+        return new HelpPage();
       default:
         return new DashboardPage();
     }
@@ -51,23 +54,7 @@ class HomePage extends StatelessWidget {
             stream: homeCtrl.selectedDrawerIndex,
             builder: (ctx, snapshoot) {
               if (snapshoot.hasData) {
-                if (snapshoot.data == 4) {
-                  return Padding(
-                    child: IconButton(
-                      icon: Icon(Icons.alarm_add),
-                      tooltip: 'Tambah Pengingat',
-                      onPressed: (){
-                        Navigator.pop(context);
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => AlarmAdd(null)
-                          )
-                        );
-                      },
-                    ),
-                    padding: const EdgeInsets.only(right: 10.0),
-                  );
-                } else if (snapshoot.data == 1) {
+                if (snapshoot.data == 1) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 10.0),
                     child: IconButton(
@@ -218,7 +205,7 @@ class HomePage extends StatelessWidget {
               ),
               Divider(height: 1),
               ListTile(
-                onTap: (){},
+                onTap: () => homeCtrl.onSelectItem(context, 5),
                 selected: false,
                 leading: Container(
                   width: 40.0,
