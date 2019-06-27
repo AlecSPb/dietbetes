@@ -12,11 +12,13 @@ class HomeCtrl extends Object implements BlocBase {
   final _titleCtrl = BehaviorSubject<String>();
   final _nameCtrl = BehaviorSubject<String>();
   final _statusCtrl = BehaviorSubject<String>();
+  final _avatar_url = BehaviorSubject<String>();
 
   Stream<int> get selectedDrawerIndex => _pageIdxCtrl.stream;
   Stream<String> get title => _titleCtrl.stream;
   Stream<String> get name => _nameCtrl.stream;
   Stream<String> get status => _statusCtrl.stream;
+  Stream<String> get avatar => _avatar_url.stream;
 
   Function(int) get updateSelectedDrawerIndex => _pageIdxCtrl.sink.add;
   Function(String) get updateTitle => _titleCtrl.sink.add;
@@ -31,10 +33,11 @@ class HomeCtrl extends Object implements BlocBase {
     init();
   }
 
-  init() {
+  init() async {
     print('Init first');
     _pageIdxCtrl.sink.add(0);
     _titleCtrl.sink.add("DIETBETES");
+    _avatar_url.sink.add(await sessions.load("avatar"));
   }
 
   fromHome(String name, String status) {

@@ -53,15 +53,19 @@ class _ProfilePageState extends State<ProfilePage> with ValidationMixin {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CircularProfileAvatar(
-                  "http://i.pravatar.cc/300",
-                  initialsText: Text("R", style: TextStyle(fontSize: 40, color: Colors.white)),
-                  elevation: 5.0,
-                  borderWidth: .5,
-                  borderColor: Colors.grey,
-                  onTap: () {
-                    print('Event Upload Image');
-                  },
+                StreamBuilder(
+                  stream: profileCtrl.getAvatarUrl,
+                  builder: (context, AsyncSnapshot<String> snapshot) {
+                    return CircularProfileAvatar(
+                      snapshot.hasData ? snapshot.data:"",
+                      placeHolder: (BuildContext context, String data) => LoadingBlock(Theme.of(context).primaryColor),
+                      initialsText: Text("R", style: TextStyle(fontSize: 40, color: Colors.white)),
+                      elevation: 5.0,
+                      borderWidth: .5,
+                      borderColor: Colors.grey,
+                      onTap: () => profileCtrl.uploadAvatar(_scafoldKey.currentContext),
+                    );
+                  }
                 ),
                 SizedBox(height: 15.0),
                 StreamBuilder(

@@ -92,12 +92,17 @@ class HomePage extends StatelessWidget {
                         child: SizedBox(
                           width: 72.0,
                           height: 72.0,
-                          child: CircularProfileAvatar(
-                            "http://i.pravatar.cc/300",
-                            initialsText: Text("R", style: TextStyle(fontSize: 40, color: Colors.white)),
-                            elevation: 5.0,
-                            borderWidth: 0.5,
-                            borderColor: Colors.green.shade800,
+                          child: StreamBuilder(
+                            stream: homeCtrl.avatar,
+                            builder: (context, AsyncSnapshot<String> snapshot) {
+                              return CircularProfileAvatar(
+                                snapshot.hasData ? snapshot.data : "http://i.pravatar.cc/300",
+                                initialsText: Text("R", style: TextStyle(fontSize: 40, color: Colors.white)),
+                                elevation: 5.0,
+                                borderWidth: 0.5,
+                                borderColor: Colors.green.shade800,
+                              );
+                            }
                           ),
                         ),
                       ),
