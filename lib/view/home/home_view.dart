@@ -3,7 +3,7 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:dietbetes/util/data.dart';
 import 'package:dietbetes/view/alarm/alarm_add_view.dart';
 import 'package:dietbetes/view/alarm/alarm_view.dart';
-import 'package:dietbetes/view/help/help_view.dart';
+import 'package:dietbetes/view/contact_us.dart';
 import 'package:dietbetes/view/menu.dart';
 import 'package:dietbetes/view/sport.dart';
 
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
       case 4:
         return new AlarmPage();
       case 5:
-        return new HelpPage();
+        return new ContactUs();
       default:
         return new DashboardPage();
     }

@@ -122,6 +122,12 @@ class DashboardCtrl extends Object implements BlocBase {
         dialogs.information(context, title: status, child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.HTML_HIPERGLIKEMIA)],)));
       }else if (status == "Hipoglikemia") {
         dialogs.information(context, title: status, child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.HTML_HIPOGLIKEMIA)],)));
+      }else if (status == "karbo") {
+        dialogs.information(context, title: "Karbohidrat", child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.KARBO)],)));
+      }else if (status == "lemak") {
+        dialogs.information(context, title: "Lemak", child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.LEMAK)],)));
+      }else if (status == "protein") {
+        dialogs.information(context, title: "Protein", child: Container(width: double.maxFinite,height: MediaQuery.of(context).size.height * .7,child: ListView(children: <Widget>[HtmlWidget(Static.PROTEIN)],)));
       }
     }
   }

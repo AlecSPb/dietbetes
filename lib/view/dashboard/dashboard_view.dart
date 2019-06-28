@@ -107,7 +107,10 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text('Energi : ${snapshoot.data.requirement.calories} kkal', textAlign: TextAlign.left, style: TextStyle(fontSize: 17.0, color:Colors.green, fontWeight: FontWeight.w600)),
-                        Text('Protein : ${snapshoot.data.requirement.protein} gram', textAlign: TextAlign.left, style: TextStyle(fontSize: 17.0, color: Colors.green, fontWeight: FontWeight.w600)),
+                        InkWell(
+                          onTap: () => dashboardCtrl.getInfoStatus(context, "protein"),
+                          child: Text('Protein : ${snapshoot.data.requirement.protein} gram', textAlign: TextAlign.left, style: TextStyle(fontSize: 17.0, color: Colors.green, fontWeight: FontWeight.w600))
+                        ),
                       ],
                     ),
                     SizedBox(height: 10.0),
@@ -115,8 +118,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('Karbohidrat : ${snapshoot.data.requirement.carbo} gram', textAlign: TextAlign.left, style: TextStyle(fontSize: 17.0, color: Colors.green, fontWeight: FontWeight.w600)),
-                        Text('Lemak : ${snapshoot.data.requirement.fat} gram', textAlign: TextAlign.left, style: TextStyle(fontSize: 17.0, color: Colors.green, fontWeight: FontWeight.w600)),
+                        InkWell(
+                          onTap: () => dashboardCtrl.getInfoStatus(context, "karbo"),
+                          child: Text('Karbohidrat : ${snapshoot.data.requirement.carbo} gram', textAlign: TextAlign.left, style: TextStyle(fontSize: 17.0, color: Colors.green, fontWeight: FontWeight.w600))
+                        ),
+                        InkWell(
+                          onTap: () => dashboardCtrl.getInfoStatus(context, "lemak"),
+                          child: Text('Lemak : ${snapshoot.data.requirement.fat} gram', textAlign: TextAlign.left, style: TextStyle(fontSize: 17.0, color: Colors.green, fontWeight: FontWeight.w600))
+                        ),
                       ],
                     ),
                   ],
