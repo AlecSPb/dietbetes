@@ -494,7 +494,7 @@ class RegisterCtrl extends Object implements BlocBase {
           "chol_ldl": _ldl.value,
           "chol_hdl": _hdl.value,
           "triglesida": _trigliserida.value,
-          "blood_pressure": "$_tensi1/$_tensi2",
+          "blood_pressure": "${_tensi1.value}/${_tensi2.value}",
           "clinical_symptoms": "[${_gejala_klinis.value}]",
           "medicine": "[${_obat.value}]"
         });

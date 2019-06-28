@@ -8,7 +8,7 @@ class ListFoodPage extends StatefulWidget {
 
 class _ListFoodPageState extends State<ListFoodPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
-
+  final List foodType = ['Makan Pagi', 'Snack Pagi', 'Makan Siang', 'Snack Siang', 'Makan Malam', 'Snack Malam'];
   Future<void> _handleRefresh() {
 
   }
