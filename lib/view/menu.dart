@@ -1,4 +1,4 @@
-import 'package:dietbetes/view/food_list_detail.dart';
+import 'package:dietbetes/view/food_list/food_list_page.dart';
 import 'package:flutter/material.dart';
 
 class Menu extends StatelessWidget {
@@ -19,7 +19,7 @@ class Menu extends StatelessWidget {
             onPressed: (){
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (BuildContext context) => FoodListDetail(foodType[index])
+                  builder: (BuildContext context) => ListFoodPage(foodType[index])
                 )
               );
             },
