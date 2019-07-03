@@ -24,7 +24,7 @@ class _ListFoodPageState extends State<ListFoodPage> {
   num space;
   
 
-  List foodList = ['1. Fruit Oatmeal', '2. Vegetables Sandwich', '3. Omelete Sayur'];
+  // List foodList = ['1. Fruit Oatmeal', '2. Vegetables Sandwich', '3. Omelete Sayur'];
 
   @override
   void initState() {

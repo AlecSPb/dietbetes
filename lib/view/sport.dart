@@ -98,6 +98,26 @@ class _SportState extends State<Sport> with ValidationMixin{
               child: ListView(
                 children: <Widget>[
                   ExpansionTile(
+                    title: Text("Jenis Aktifitas Fisik yang dapat dilakukan (per 1 jam ) membakar kalori sebanyak"),
+                    children: <Widget>[
+                      sportTile("Mendaki (370 kalori)"),
+                      sportTile("Berkebun ringan (330 kalori)"),
+                      sportTile("Menari (330 kalori)"),
+                      sportTile("Golf (330 kalori)"),
+                      sportTile("Bicycling (290 kalori)"),
+                      sportTile("Walking (280 kalori)"),
+                      sportTile("Angkat Beban Ringan (220 kalori)"),
+                      sportTile("Peregangan / stretching (180 kalori)"),
+                      sportTile("Berlari / jogging (590 kalori)"),
+                      sportTile("Bersepeda (590 kalori)"),
+                      sportTile("Berenang (510 kalori)"),
+                      sportTile("Aerobik (480 kalori)"),
+                      sportTile("Berjalan (460 kalori)"),
+                      sportTile("Berkebun (440 kalori)"),
+                      sportTile("Bermain Basket (440 kalori)"),
+                    ],
+                  ),
+                  ExpansionTile(
                     title: Text("AYO MULAI!"),
                     children: <Widget>[
                       sportTile("Olahraga yang cocok untuk mu adalah olahraga yang kamu sukai. Jangan pernah lakukan olahraga yang tidak kamu sukai walaupun itu di rekomendasikan, karena olahraga yang baik adalah olahraga yang bersifat berkelanjutan."),

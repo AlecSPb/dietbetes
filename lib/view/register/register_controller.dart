@@ -32,7 +32,7 @@ class RegisterCtrl extends Object implements BlocBase {
   final _birthdate = BehaviorSubject<String>();
   final _ideal_weight = BehaviorSubject<num>();
   final _ibm = BehaviorSubject<num>();
-  final _history = BehaviorSubject<int>();
+  final _history = BehaviorSubject<int>(seedValue: 0);
   final _gula_puasa = BehaviorSubject<String>();
   final _gula_sewaktu = BehaviorSubject<String>();
   final _gula_makan = BehaviorSubject<String>();
@@ -218,6 +218,7 @@ class RegisterCtrl extends Object implements BlocBase {
         _trigliserida_.sink.add("Buruk");
       }
     });
+    _history.sink.add(0);
     // tensi.addListener(() {
     //   var value = int.parse(tensi.text);
     //   if () {
